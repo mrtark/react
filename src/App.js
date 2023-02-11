@@ -2,7 +2,7 @@ import './App.css';
 import Header from './component/Header';
 import Main from './component/Main';
 import Footer from './component/Footer';
-import { BrowserRouter as Route, Router, Switch } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import React from 'react';
 import RegisterList from './component/register crud page/RegisterList';
 import RegisterCreate from './component/register crud page/RegisterCreate';
