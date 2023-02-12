@@ -13,7 +13,7 @@ function App() {
   return (
     <React.Fragment>
       <Router>
-        <Header />
+        <Header icon="fa-solid fa-house"/>
         <Switch>
           <Route path="/" exact component={RegisterList}></Route>
           <Route path="/register-list" component={RegisterList}></Route>
