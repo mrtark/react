@@ -17,7 +17,7 @@ function App() {
         <Switch>
           <Route path="/" exact component={RegisterList}></Route>
           <Route path="/register-list" component={RegisterList}></Route>
-          <Route path="/register-add/:id" component={RegisterCreate}></Route>
+          <Route path="/register-create/:id" component={RegisterCreate}></Route>
           <Route path="/register-detail/:id" component={RegisterDetail}></Route>
         </Switch>
         <Footer />

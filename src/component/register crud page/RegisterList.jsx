@@ -8,6 +8,10 @@ export default class RegisterList extends Component {
     this.state = {
       registerList: [],
     }
+    this.createRegister=this.createRegister.bind(this);
+    this.updateRegister=this.updateRegister.bind(this);
+    this.detailRegister=this.detailRegister.bind(this);
+    this.deleteRegister=this.deleteRegister.bind(this);
   }
 
   componentDidMount() {
@@ -22,9 +26,45 @@ export default class RegisterList extends Component {
     )
   }
 
+  createRegister() {
+    this.props.history.push("/register-create/");
+  }
+
+  updateRegister(id) {
+    this.props.history.push("/register-create/" + id);
+  }
+
+  detailRegister(id){
+    this.props.history.push(`/register-detail/ + ${id}`)
+  }
+
+  deleteRegister(id){
+    this.props.history.push(`/register-detail/ + ${id}`)
+  }
+
   render() {
     return (
       <>
+        <main className="text-end ekle">
+          <section className="ms-5 mt-4 d-inline-block">
+            <a style={{ "textDecoration": "none" }}>
+              <button type="button" className="button-56" data-bs-toggle="modal" data-bs-target="#modalId" role="button">
+                <i className="fa-solid fa-bolt me-1"></i>
+                Hızlı Ürün Ekle
+              </button>
+            </a>
+          </section>
+          <section className="ms-5 mt-4 d-inline-block">
+            <a style={{ "textDecoration": "none" }} onClick={this.createRegister}>
+              <button type="button" className="button-57" data-bs-toggle="modal" data-bs-target="#modalId" role="button">
+                <i className="fa-solid fa-plus me-2"></i>
+                Manuel Ürün Ekle
+              </button>
+            </a>
+          </section>
+
+        </main>
+
         <section className="ms-1 me-1 tabless mt-4">
           <div className="card girilenİslemList shadow">
             <div className="card-header text-center bg-baslık">
@@ -48,7 +88,7 @@ export default class RegisterList extends Component {
 
               <tbody>
                 {
-                  this.state.registerList.map(temp=>
+                  this.state.registerList.map(temp =>
                     <tr key={temp}>
                       <td>{temp.id}</td>
                       <td>{temp.username}</td>
@@ -60,7 +100,7 @@ export default class RegisterList extends Component {
                       <td><i class="fa-solid fa-file-pen text-dark fs-4"></i></td>
                       <td><i class="fa-solid fa-circle-info text-dark fs-4"></i></td>
                       <td><i class="fa-solid fa-trash-can text-dark fs-4"></i></td>
-                      
+
                     </tr>
                   )
                 }
