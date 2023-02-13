@@ -3,7 +3,7 @@ import React from 'react'
 export default function Footer() {
   return (
     <>
-      <footer className='bg-dark fixed-bottom'>
+      <footer className='fixed-bottom'>
 
         <section className="ftr">
           <div className="text-center text-dark mt-4 pt-4">

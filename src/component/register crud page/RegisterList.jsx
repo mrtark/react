@@ -25,7 +25,7 @@ export default class RegisterList extends Component {
   render() {
     return (
       <>
-        <section className="container tabless mt-4">
+        <section className="ms-1 me-1 tabless mt-4">
           <div className="card girilenİslemList shadow">
             <div className="card-header text-center bg-baslık">
               <h3>Kullanıcı Listesi</h3>
