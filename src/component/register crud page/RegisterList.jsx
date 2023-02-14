@@ -8,10 +8,10 @@ export default class RegisterList extends Component {
     this.state = {
       registerList: [],
     }
-    this.createRegister=this.createRegister.bind(this);
-    this.updateRegister=this.updateRegister.bind(this);
-    this.detailRegister=this.detailRegister.bind(this);
-    this.deleteRegister=this.deleteRegister.bind(this);
+    this.createRegister = this.createRegister.bind(this);
+    this.updateRegister = this.updateRegister.bind(this);
+    this.detailRegister = this.detailRegister.bind(this);
+    this.deleteRegister = this.deleteRegister.bind(this);
   }
 
   componentDidMount() {
@@ -34,12 +34,21 @@ export default class RegisterList extends Component {
     this.props.history.push("/register-create/" + id);
   }
 
-  detailRegister(id){
-    this.props.history.push(`/register-detail/ + ${id}`)
+  detailRegister(id) {
+    this.props.history.push(`/register-detail/${id}`)
   }
 
-  deleteRegister(id){
-    this.props.history.push(`/register-detail/ + ${id}`)
+  deleteRegister(id) {
+    Register.deleteApiRegister(id).then(
+      toDelete => {
+        this.setState({
+          registerList: this.state.registerList.filter(
+            registerList => registerList.id != id
+          )
+        }
+        )
+      }
+    )
   }
 
   render() {
@@ -50,7 +59,7 @@ export default class RegisterList extends Component {
             <a style={{ "textDecoration": "none" }}>
               <button type="button" className="button-56" data-bs-toggle="modal" data-bs-target="#modalId" role="button">
                 <i className="fa-solid fa-bolt me-1"></i>
-                Hızlı Ürün Ekle
+                Hızlı Kullanıcı Ekle
               </button>
             </a>
           </section>
@@ -58,7 +67,7 @@ export default class RegisterList extends Component {
             <a style={{ "textDecoration": "none" }} onClick={this.createRegister}>
               <button type="button" className="button-57" data-bs-toggle="modal" data-bs-target="#modalId" role="button">
                 <i className="fa-solid fa-plus me-2"></i>
-                Manuel Ürün Ekle
+                Manuel Kullanıcı Ekle
               </button>
             </a>
           </section>
@@ -97,9 +106,13 @@ export default class RegisterList extends Component {
                       <td>{temp.passwd}</td>
                       <td>{temp.telephoneNumber}</td>
                       <td>{temp.createdDate}</td>
-                      <td><i class="fa-solid fa-file-pen text-dark fs-4"></i></td>
-                      <td><i class="fa-solid fa-circle-info text-dark fs-4"></i></td>
-                      <td><i class="fa-solid fa-trash-can text-dark fs-4"></i></td>
+                      <td><i class="fa-solid fa-file-pen text-dark fs-4 cursor" onClick={() => this.updateRegister(temp.id)}></i></td>
+                      <td><i class="fa-solid fa-circle-info text-dark fs-4 cursor" onClick={() => this.detailRegister(temp.id)}></i></td>
+                      <td><i class="fa-solid fa-trash-can text-dark fs-4 cursor" onClick={() => {
+                        if (window.confirm("Kullanıcı Silinsin Mi?")) {
+                          this.deleteRegister(temp.id)
+                        }
+                      }}></i></td>
 
                     </tr>
                   )
