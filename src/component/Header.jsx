@@ -14,7 +14,7 @@ export default function Header(props) {
           <div class="collapse navbar-collapse" id="collapsibleNavId">
             <ul class="navbar-nav me-auto mt-2 mt-lg-0">
               <li class="nav-item">
-                <a class="nav-link active text-dark bg-light rounded-3"
+                <a class="nav-link active text-dark rounded-3"
                   aria-current="page">Anasayfa <span class="visually-hidden">(current)</span></a>
               </li>
               <li class="nav-item">
