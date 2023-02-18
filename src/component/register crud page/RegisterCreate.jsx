@@ -13,11 +13,12 @@ export default class RegisterCreate extends Component {
       telephoneNumber: "",
       passwd: ""
     }
-    this.onChangeUserName=this.onChangeUserName.bind(this);
-    this.onChangeSurname=this.onChangeSurname.bind(this);
-    this.onChangeEmail=this.onChangeEmail.bind(this);
-    this.onChangeTelephone=this.onChangeTelephone(this);
-    this.onChangePassword=this.onChangePassword.bind(this);
+    this.onChangeUserName = this.onChangeUserName.bind(this);
+    this.onChangeSurname = this.onChangeSurname.bind(this);
+    this.onChangeEmail = this.onChangeEmail.bind(this);
+    this.onChangeTelephone = this.onChangeTelephone(this);
+    this.onChangePassword = this.onChangePassword.bind(this);
+    this.dynamicHeader_CreateorUpdate = this.dynamicHeader_CreateorUpdate.bind(this);
   }
 
   dynamicHeader_CreateorUpdate() {
@@ -29,33 +30,33 @@ export default class RegisterCreate extends Component {
 
   }
 
-  onChangeUserName(event){
+  onChangeUserName(event) {
     this.setState({
-      username : event.target.value
+      username: event.target.value
     })
   }
 
-  onChangeSurname(event){
+  onChangeSurname(event) {
     this.setState({
-      surname : event.target.value
+      surname: event.target.value
     })
   }
 
-  onChangeEmail(event){
+  onChangeEmail(event) {
     this.setState({
-      email : event.target.value
+      email: event.target.value
     })
   }
 
-  onChangeTelephone(event){
+  onChangeTelephone(event) {
     // this.setState({
     //   telephoneNumber : event.target.value
     // })
   }
 
-  onChangePassword(event){
+  onChangePassword(event) {
     this.setState({
-      passwd : event.target.value
+      passwd: event.target.value
     })
   }
 
@@ -79,6 +80,40 @@ export default class RegisterCreate extends Component {
     }
   }
 
+  createOrUpdate = (event) => {
+    event.preventDefault();
+
+    const registerDTO = {
+      username: this.state.username,
+      surname: this.state.surname,
+      email: this.state.email,
+      telephoneNumber: this.state.telephoneNumber,
+      passwd: this.state.passwd
+    }
+
+    if (this.state.id === "register-create") {
+      Register.createApiRegister(registerDTO).then(
+        response => {
+          if (response.status === 200) {
+            this.props.history.push("/register-list")
+          }
+        }
+      ).catch(error=>{
+        console.log("Create Eror Note: " + error.response.data)
+      });
+    }else{
+      Register.updateApiRegister(this.state.id,registerDTO).then(
+        response => {
+          if (response.status === 200) {
+            this.props.history.push("/register-list")
+          }
+        }
+      ).catch(error=>{
+        console.log("Update Error Note: " + error.response.data)
+      });
+    }
+  }
+
   render() {
     return (
       <>
@@ -96,7 +131,7 @@ export default class RegisterCreate extends Component {
                   <div className="col">
                     <div className="input-group mb-3">
                       <span for="username" className="input-group-text" id="basic-addon1">Kullanıcı Adı</span>
-                      <input type="text" className="form-control" autofocus="false" id="username" name="username" onChange={this.onChangeUserName} value={this.state.username}/>
+                      <input type="text" className="form-control" autofocus="false" id="username" name="username" onChange={this.onChangeUserName} value={this.state.username} />
                     </div>
                   </div>
 
@@ -109,31 +144,37 @@ export default class RegisterCreate extends Component {
                 </div>
 
                 <div className="row m-2">
-                    <div className="col">
-                        <div className="input-group mb-3">
-                            <span for="email" className="input-group-text" id="basic-addon1">Email</span>
-                            <input type="text" className="form-control" autofocus="true"  id="email" name="email" onChange={this.onChangeEmail} value={this.state.email}/>
-                        </div>
+                  <div className="col">
+                    <div className="input-group mb-3">
+                      <span for="email" className="input-group-text" id="basic-addon1">Email</span>
+                      <input type="text" className="form-control" autofocus="true" id="email" name="email" onChange={this.onChangeEmail} value={this.state.email} />
                     </div>
+                  </div>
                 </div>
 
                 <div className="row m-2">
-                    <div className="col">
-                        <div className="input-group mb-3">
-                            <span for="telephoneNumber" className="input-group-text" id="basic-addon1">Telefon Numarası</span>
-                            <input type="text" className="form-control" autofocus="true"  id="telephoneNumber" name="telephoneNumber" onChange={this.onChangeTelephone} value={this.state.telephoneNumber}/>
-                        </div>
+                  <div className="col">
+                    <div className="input-group mb-3">
+                      <span for="telephoneNumber" className="input-group-text" id="basic-addon1">Telefon Numarası</span>
+                      <input type="text" className="form-control" autofocus="true" id="telephoneNumber" name="telephoneNumber" onChange={this.onChangeTelephone} value={this.state.telephoneNumber} />
                     </div>
+                  </div>
                 </div>
 
                 <div className="row m-2">
-                    <div className="col">
-                        <div className="input-group mb-3">
-                            <span for="passwd" className="input-group-text" id="basic-addon1">Şifre</span>
-                            <input type="text" className="form-control" autofocus="true"  id="passwd" name="passwd" onChange={this.onChangePassword} value={this.state.passwd}/>
-                        </div>
+                  <div className="col">
+                    <div className="input-group mb-3">
+                      <span for="passwd" className="input-group-text" id="basic-addon1">Şifre</span>
+                      <input type="text" className="form-control" autofocus="true" id="passwd" name="passwd" onChange={this.onChangePassword} value={this.state.passwd} />
                     </div>
+                  </div>
                 </div>
+
+                <div class="modal-footer form-group">
+                  <input type="reset" class="shadow btn btn-danger me-3" value="Temizle" />
+                  <input type="submit" class="shadow btn btn-outline-success" value="Kaydet" onClick={this.createOrUpdate} />
+                </div>
+
 
               </form>
             </div>
